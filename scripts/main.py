@@ -1,5 +1,5 @@
 import csv
-
+from datetime import datetime
 
 def leer_archivo_ventas(nombre_archivo):
     ventas = []
@@ -61,6 +61,29 @@ def producto_mas_vendido(ventas):
     return producto_max, cantidad_max
 
 
+def calcular_ventas_por_mes(ventas):
+    ventas_por_mes = {}
+
+    for venta in ventas:
+        fecha_str = venta['fecha']
+
+        try: 
+            fecha_obj = datetime.strptime(fecha_str, '%Y-%m-%d')
+            mes = fecha_obj.strftime('%Y-%m')
+
+            monto = venta['cantidad'] * venta['precio']
+
+            if mes in ventas_por_mes:
+                ventas_por_mes[mes] += monto
+            else:
+                ventas_por_mes[mes] = monto
+        
+        except ValueError:
+            print(f" Advertencia: Fecha inválida: {fecha_str}")
+            continue
+    
+    ventas_por_mes_ordenado = dict(sorted(ventas_por_mes.items()))
+    return ventas_por_mes_ordenado
 
 
 
