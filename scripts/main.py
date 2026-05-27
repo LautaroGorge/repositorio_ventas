@@ -40,5 +40,30 @@ def calcular_ventas_totales(ventas):
     return total
 
 
+def producto_mas_vendido(ventas):
+    cantidad_por_producto = {}
+
+    for venta in ventas:
+        producto = venta['producto']
+        cantidad = venta['cantidad']
+
+        if producto in cantidad_por_producto:
+            cantidad_por_producto[producto] += cantidad
+        else:
+            cantidad_por_producto[producto] = cantidad
+
+    if not cantidad_por_producto:
+        return None,0
+
+    producto_max = max(cantidad_por_producto, key=cantidad_por_producto.get)
+    cantidad_max = cantidad_por_producto[producto_max]
+
+    return producto_max, cantidad_max
+
+
+
+
+
+
 def main():
     pass
