@@ -39,26 +39,13 @@ def calcular_ventas_totales(ventas):
 
     return total
 
+def dia_mayor_venta(ventas):
+    if not ventas:
+        return None, 0
 
-def producto_mas_vendido(ventas):
-    cantidad_por_producto = {}
+    venta_max = max(ventas, key=lambda v: v['monto'])
 
-    for venta in ventas:
-        producto = venta['producto']
-        cantidad = venta['cantidad']
-
-        if producto in cantidad_por_producto:
-            cantidad_por_producto[producto] += cantidad
-        else:
-            cantidad_por_producto[producto] = cantidad
-
-    if not cantidad_por_producto:
-        return None,0
-
-    producto_max = max(cantidad_por_producto, key=cantidad_por_producto.get)
-    cantidad_max = cantidad_por_producto[producto_max]
-
-    return producto_max, cantidad_max
+    return venta_max['fecha'], venta_max['monto']
 
 
 def calcular_ventas_por_mes(ventas):
@@ -67,23 +54,25 @@ def calcular_ventas_por_mes(ventas):
     for venta in ventas:
         fecha_str = venta['fecha']
 
-        try: 
+        try:
             fecha_obj = datetime.strptime(fecha_str, '%Y-%m-%d')
             mes = fecha_obj.strftime('%Y-%m')
 
-            monto = venta['cantidad'] * venta['precio']
-
             if mes in ventas_por_mes:
-                ventas_por_mes[mes] += monto
+                ventas_por_mes[mes] += venta['monto']
             else:
-                ventas_por_mes[mes] = monto
-        
+                ventas_por_mes[mes] = venta['monto']
+
         except ValueError:
-            print(f" Advertencia: Fecha inválida: {fecha_str}")
+            print(f"Advertencia: Fecha invalida encontrada: {fecha_str}")
             continue
-    
+
     ventas_por_mes_ordenado = dict(sorted(ventas_por_mes.items()))
     return ventas_por_mes_ordenado
+
+
+def mostrar_indicadores():
+    pass
 
 
 
