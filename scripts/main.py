@@ -71,8 +71,31 @@ def calcular_ventas_por_mes(ventas):
     return ventas_por_mes_ordenado
 
 
-def mostrar_indicadores():
-    pass
+def mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_mes):
+    print("="*75)
+    print("Indicadores de ventas - Resumen ejecutivo")
+    print("="*75)
+
+    print(f"\n Ventas totales: ${total_ventas:,.2f}")
+
+    print(f"\n Cantidad de Transacciones: ${len(ventas)}")
+
+
+    if ventas:
+        promedio = total_ventas / len(ventas)
+        print(f"Promedio diario de ventas: ${promedio:,.2f}")
+    
+    print(f"\n Día de mayor de ventas: {fecha_max}")
+    print(f"    Monto registrado: ${monto_max:,.2f}")
+
+    print(f"\n VENTAS POR MES:")
+    print("-"*75)
+
+    for mes, monto in ventas_por_mes.items():
+        print(f"   {mes}: ${monto:,.2f}")
+
+    print("-" * 75)
+    print("\n" + "=" * 75 + "\n")
 
 
 
