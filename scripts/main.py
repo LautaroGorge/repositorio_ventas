@@ -78,7 +78,7 @@ def mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_m
 
     print(f"\n Ventas totales: ${total_ventas:,.2f}")
 
-    print(f"\n Cantidad de Transacciones: ${len(ventas)}")
+    print(f"\n Cantidad de Transacciones: {len(ventas)}")
 
 
     if ventas:
@@ -101,4 +101,29 @@ def mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_m
 
 
 def main():
-    pass
+    print("\n" + "=" * 75)
+    print("SISTEMA DE ANALISIS DE VENTAS - PEQUEÑA EMPRESA")
+    print("=" * 75 + "\n")
+
+    nombre_archivo_entrada = 'datos/sales_sample_2024.csv'
+    ventas = leer_archivo_ventas(nombre_archivo_entrada)
+
+    if not ventas:
+        print("No se pudo cargar el archivo de ventas")
+        return
+
+    print("Calculando indicadores...\n")
+
+    total_ventas = calcular_ventas_totales(ventas)
+    fecha_max, monto_max = dia_mayor_venta(ventas)
+    ventas_por_mes = calcular_ventas_por_mes(ventas)
+
+    mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_mes)
+
+
+
+
+
+
+if __name__ == '__main__':
+    main()
