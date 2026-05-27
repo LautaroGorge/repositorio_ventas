@@ -1,5 +1,6 @@
 import csv
 
+
 def leer_archivo_ventas(nombre_archivo):
     ventas = []
     
@@ -28,6 +29,15 @@ def leer_archivo_ventas(nombre_archivo):
     except Exception as e:
         print(f" Error inesperado: {e}")
         return []
+
+
+def calcular_ventas_totales(ventas):
+    total = 0
+
+    for venta in ventas:
+        total += venta['monto']
+
+    return total
 
 
 def main():
