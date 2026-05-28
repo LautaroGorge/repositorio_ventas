@@ -98,6 +98,21 @@ def mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_m
     print("\n" + "=" * 75 + "\n")
 
 
+def crear_tabla_ventas_por_mes(ventas_por_mes):
+    print("\nTABLA: EVOLUCION DE VENTAS POR MES")
+    print("=" * 70)
+
+    if not ventas_por_mes:
+        return
+
+    max_venta = max(ventas_por_mes.values())
+
+    for mes, monto in ventas_por_mes.items():
+        largo_barra = int((monto/ max_venta) * 40)
+        barra = "█" * largo_barra
+        print(f"{mes} | {barra:40} ${monto:,.2f}")
+
+    print("="*75 + "\n")
 
 
 def main():
