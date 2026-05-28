@@ -1,6 +1,7 @@
 import csv
 from datetime import datetime
 
+# FUNCION 1: Leer el archivo CSV de ventas (id, sales_date, sales_amount).
 def leer_archivo_ventas(nombre_archivo):
     ventas = []
     
@@ -30,7 +31,8 @@ def leer_archivo_ventas(nombre_archivo):
         print(f" Error inesperado: {e}")
         return []
 
-
+# FUNCION 2: Calcular ventas totales.
+"""Suma todos los montos de venta del periodo."""
 def calcular_ventas_totales(ventas):
     total = 0
 
@@ -39,6 +41,8 @@ def calcular_ventas_totales(ventas):
 
     return total
 
+# FUNCION 3: Encontrar el dia de mayor venta.
+"""Busca el registro con el monto individual mas alto."""
 def dia_mayor_venta(ventas):
     if not ventas:
         return None, 0
@@ -47,7 +51,8 @@ def dia_mayor_venta(ventas):
 
     return venta_max['fecha'], venta_max['monto']
 
-
+# FUNCION 4: Calcular ventas por mes.
+"""Agrupa los montos diarios y los acumula por mes (formato YYYY-MM)."""
 def calcular_ventas_por_mes(ventas):
     ventas_por_mes = {}
 
@@ -70,7 +75,7 @@ def calcular_ventas_por_mes(ventas):
     ventas_por_mes_ordenado = dict(sorted(ventas_por_mes.items()))
     return ventas_por_mes_ordenado
 
-
+# FUNCION 5: Mostrar indicadores en consola.
 def mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_mes):
     print("="*75)
     print("Indicadores de ventas - Resumen ejecutivo")
@@ -97,7 +102,8 @@ def mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_m
     print("-" * 75)
     print("\n" + "=" * 75 + "\n")
 
-
+# FUNCION 6: Crear tabla de evolucion de ventas por mes.
+"""Genera una barra proporcional para visualizar la evolucion mensual."""
 def crear_tabla_ventas_por_mes(ventas_por_mes):
     print("\nTABLA: EVOLUCION DE VENTAS POR MES")
     print("=" * 70)
@@ -114,7 +120,8 @@ def crear_tabla_ventas_por_mes(ventas_por_mes):
 
     print("="*75 + "\n")
 
-
+# FUNCION 7: Guardar resultados en archivo de texto.
+"""Guarda los indicadores calculados en un archivo de texto."""
 def guardar_resultados(nombre_archivo_salida, total_ventas, fecha_max, monto_max, ventas_por_mes):
     try:
         with open(nombre_archivo_salida, 'w', encoding='utf-8') as archivo:
@@ -139,34 +146,38 @@ def guardar_resultados(nombre_archivo_salida, total_ventas, fecha_max, monto_max
     except Exception as e:
         print(f"Error al guardar resultados {e}")
 
-
+# PROGRAMA PRINCIPAL
 def main():
     print("\n" + "=" * 75)
     print("SISTEMA DE ANALISIS DE VENTAS - PEQUEÑA EMPRESA")
     print("=" * 75 + "\n")
 
+# PASO 1: Leer el archivo de ventas desde la carpeta /datos
     nombre_archivo_entrada = 'datos/sales_sample_2024.csv'
     ventas = leer_archivo_ventas(nombre_archivo_entrada)
 
     if not ventas:
         print("No se pudo cargar el archivo de ventas")
         return
-
+    
+# PASO 2: Calcular indicadores
     print("Calculando indicadores...\n")
-
     total_ventas = calcular_ventas_totales(ventas)
     fecha_max, monto_max = dia_mayor_venta(ventas)
     ventas_por_mes = calcular_ventas_por_mes(ventas)
 
+# PASO 3: Mostrar indicadores en consola
     mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_mes)
 
+# PASO 4: Mostrar tabla de evolucion mensual
     crear_tabla_ventas_por_mes(ventas_por_mes)
 
+# PASO 5: Guardar resultados en /resultados
     print("Guardando resultados...\n")
     guardar_resultados('resultados/reporte_ventas.txt', total_ventas, fecha_max, monto_max, ventas_por_mes)
 
     print("Analisis completado exitosamente.")
 
-
+# EJECUCION DEL PROGRAMA
 if __name__ == '__main__':
     main()
