@@ -115,6 +115,31 @@ def crear_tabla_ventas_por_mes(ventas_por_mes):
     print("="*75 + "\n")
 
 
+def guardar_resultados(nombre_archivo_salida, total_ventas, fecha_max, monto_max, ventas_por_mes):
+    try:
+        with open(nombre_archivo_salida, 'w', encoding='utf-8') as archivo:
+            archivo.write("=" * 60 + "\n")
+            archivo.write("Resultados de análisis de ventas\n")
+            archivo.write("=" * 60 + "\n")
+
+            archivo.write(f"VENTAS TOTALES: ${total_ventas:,.2f}\n\n")
+
+            archivo.write(f"DIA DE MAYOR VENTA: {fecha_max}\n")
+            archivo.write(f"MONTO: ${monto_max:,.2f}\n\n")
+
+            archivo.write("VENTAS POR MES:\n")
+            archivo.write("-" * 60 + "\n")
+            for mes, monto in ventas_por_mes.items():
+                archivo.write(f"  {mes}: ${monto:,.2f}\n")
+
+            archivo.write("=" * 60 + "\n")
+
+        print(f"Resultados guardados en: {nombre_archivo_salida}")
+    
+    except Exception as e:
+        print(f"Error al guardar resultados {e}")
+
+
 def main():
     print("\n" + "=" * 75)
     print("SISTEMA DE ANALISIS DE VENTAS - PEQUEÑA EMPRESA")
