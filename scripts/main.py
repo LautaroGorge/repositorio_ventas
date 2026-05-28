@@ -160,9 +160,12 @@ def main():
 
     mostrar_indicadores(ventas, total_ventas, fecha_max, monto_max, ventas_por_mes)
 
+    crear_tabla_ventas_por_mes(ventas_por_mes)
 
+    print("Guardando resultados...\n")
+    guardar_resultados('resultados/reporte_ventas.txt', total_ventas, fecha_max, monto_max, ventas_por_mes)
 
-
+    print("Analisis completado exitosamente.")
 
 
 if __name__ == '__main__':
